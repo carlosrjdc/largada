@@ -1,0 +1,21 @@
+{
+"A":"Empresa",
+"B":"Id_Rota",
+"C":"Transporte",
+"D":"Local_Org",
+"E":"Texto_adicional",
+"F":"Placa",
+"G":"Remessa",
+"H":"Sequencia",
+"I":"Cod_Cliente",
+"J":"Cliente",
+"K":"Cidade",
+"L":"Bairro",
+"M":"Peso",
+"N": "Rua",
+"O":"Valor",
+"P":"Perfil_Rota",
+"Q":"Perfil_Efetivo",
+"R":"Cadastro_Sap",
+"S":"Data_Saida_Mercador"
+}
