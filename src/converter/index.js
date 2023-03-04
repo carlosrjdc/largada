@@ -131,7 +131,6 @@ arraynovoFinal.forEach( record => {
     rowIndex++;
 }); 
  
-wb.write('uploads/ArquivoExcel.xlsx');
 
 arraynovoFinal.map(item=>{
     item.QtdEntrega = parseInt(item.QtdEntrega)
