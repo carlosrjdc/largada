@@ -1,19 +1,19 @@
 const excelToJson = require('convert-excel-to-json');
-const xl = require('excel4node');
-const wb = new xl.Workbook();
-const ws = wb.addWorksheet('Worksheet Name');
 const path = require('path');
 const fs = require('fs');
 const db = require("../../models");
 const infoDados = require("./dados.json")
 const colunas = require("./colunas.js")
 const functionAjuste = require("./functionAjuste.js")
-const uploadFile = require("./app.js")
+const uploadFile = require("./app.js");
+const { response } = require('express');
+const xlxs = require("xlsx")
+
 
 
 const verescala = db.Escala;
  
-async function rodarApp(arquivo, nomeFinalArquivo){
+async function rodarApp(arquivo){
 
 
 const result = await  excelToJson({
@@ -59,48 +59,9 @@ return acc},[])
 
 arraynovoFinal.shift()
 
-const headingColumnNames = colunas
-let headingColumnIndex = 1; //diz que começará na primeira linha
-headingColumnNames.forEach(heading => { //passa por todos itens do array
-    // cria uma célula do tipo string para cada título
-    ws.cell(1, headingColumnIndex++).string(heading);
-});
- 
-let rowIndex = 2;
-arraynovoFinal.forEach( record => {
-    let columnIndex = 1;
-    Object.keys(record).forEach(columnName =>{
-        ws.cell(rowIndex,columnIndex++)
-            .string(record [columnName])
-    });
-    rowIndex++;
-}); 
- 
+return arraynovoFinal
 
-/*arraynovoFinal.map(item=>{
-    item.QtdEntrega = parseInt(item.QtdEntrega)
-    item.Reentrega = parseInt(item.Reentrega)
-    item.LDB = parseInt(item.LDB)
-    item.ITB = parseInt(item.ITB)
-    item.Transporte = parseInt(item.Transporte)
-    verescala.create({
-        NRota:item.N_rota,
-        Transporte: item.Transporte,
-        Nf: item.NF,
-        Cliente:item.Cliente,
-        Cidade:item.Cidade,
-        Bairro:item.Bairro,
-        Qtdentregas: item.QtdEntrega,
-        Reentrega: item.Reentrega,
-        LDB: item.LDB,
-        ITB: item.ITB
-    })
-})*/
 
-let info = ""
-await uploadFile(wb.write('opa.xlsx'),nomeFinalArquivo).then(data=> {info = data})
-return info
- 
 }
 
 module.exports = rodarApp

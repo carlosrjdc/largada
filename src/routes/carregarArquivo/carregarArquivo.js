@@ -26,7 +26,7 @@ const router = express.Router();
 
 router.post("/cadastro", upload.single('foto'), async (req, res) => {
     //uploadFile(req.file)
-    rodarApp(req.file.buffer, req.file.originalname).then(data=> { 
+    rodarApp(req.file.buffer).then(data=> { 
         console.log(data) 
         res.json(data)})})
     //const arquivo = fs.readFileSync(req.file.filename.b, "utf8")
