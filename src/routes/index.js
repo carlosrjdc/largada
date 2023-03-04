@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const carregarArquivo = require("./carregarArquivo/carregarArquivo.js")
+
 
 const routes = (app) => {
   app.route("/").get((req, res) => {
@@ -9,6 +11,7 @@ const routes = (app) => {
   app.use(
     express.json(),
     cors(),
+    carregarArquivo,
 
     express.raw({ type: "application/pdf" })
   );
