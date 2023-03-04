@@ -2,6 +2,8 @@ const express = require("express");
 const multer = require('multer');
 const path = require('path');
 const rodarArquivo = require("../../converter/index.js")
+var xl = require('excel4node');
+var wb = new xl.Workbook();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -36,6 +38,8 @@ router.post("/cadastro", upload.single('foto'), async (req, res) => {
 router.post("/rodar", async (req, res) => {
     rodarArquivo("5c8b8a03bc51aebc7759b60a23588c84904b2370c99a04289221fe77df2a8fd63f7bf5c1aecd19a486cfc5481209934eeb8c2ad3830ff9d74bde3af852c02585.xlsx")
     res.json("OK")});
-router.get("/cadastro", (req,res)=> res.send("Ok"));
+router.get("/cadastro", (req,res)=> {
+    wb.write('ArquivoExcel.xlsx', res)
+});
 
 module.exports = router;

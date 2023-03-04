@@ -2,11 +2,17 @@ const excelToJson = require('convert-excel-to-json');
 const xl = require('excel4node');
 const wb = new xl.Workbook();
 const ws = wb.addWorksheet('Worksheet Name');
+const path = require('path');
+const fs = require('fs');
+const db = require("../../models");
 
 
+const verescala = db.Escala;
  
-function escala(arquivo){
-const result = excelToJson({
+async function escala(arquivo){
+
+
+const result = await  excelToJson({
     sourceFile: arquivo,
     columnToKey:{
         A:"Empresa",
@@ -33,7 +39,6 @@ const result = excelToJson({
 });
 
 function agruparPor(objetoArray, propriedade) {
-    const resultadoFinal = []
     return objetoArray.reduce(function (acc, obj) {
         let key = obj[propriedade];
         if (!acc[key]) {
@@ -90,9 +95,11 @@ const novaEscala = Object.entries(escala)
 
 const arraynovoFinal = novaEscala.reduce((acc, item)=> {
     acc.push(item[1][0])
+    console.log(acc[0])
 
 return acc},[])
 
+arraynovoFinal.shift()
 
 const headingColumnNames = [
     "N_rota",
@@ -114,7 +121,7 @@ headingColumnNames.forEach(heading => { //passa por todos itens do array
     ws.cell(1, headingColumnIndex++).string(heading);
 });
  
-let rowIndex = 3;
+let rowIndex = 2;
 arraynovoFinal.forEach( record => {
     let columnIndex = 1;
     Object.keys(record).forEach(columnName =>{
@@ -124,7 +131,28 @@ arraynovoFinal.forEach( record => {
     rowIndex++;
 }); 
  
-wb.write('ArquivoExcel.xlsx');
+wb.write('uploads/ArquivoExcel.xlsx');
+
+arraynovoFinal.map(item=>{
+    item.QtdEntrega = parseInt(item.QtdEntrega)
+    item.Reentrega = parseInt(item.Reentrega)
+    item.LDB = parseInt(item.LDB)
+    item.ITB = parseInt(item.ITB)
+    item.Transporte = parseInt(item.Transporte)
+    verescala.create({
+        NRota:item.N_rota,
+        Transporte: item.Transporte,
+        Nf: item.NF,
+        Cliente:item.Cliente,
+        Cidade:item.Cidade,
+        Bairro:item.Bairro,
+        Qtdentregas: item.QtdEntrega,
+        Reentrega: item.Reentrega,
+        LDB: item.LDB,
+        ITB: item.ITB
+    })
+})
+
 
  
 }
