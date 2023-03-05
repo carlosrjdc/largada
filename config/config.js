@@ -10,6 +10,7 @@ module.exports = {
     port: 3306,
     dialect: "mysql",
     dialectModule: require("mysql2"),
+    timezone: "-03:00",
   },
   test: {
     username: process.env.USUARIOSQL,
@@ -19,6 +20,7 @@ module.exports = {
     port: 3306,
     dialect: "mysql",
     dialectModule: require("mysql2"),
+    timezone: "-03:00",
   },
   production: {
     username: process.env.USUARIOSQL,
@@ -28,5 +30,6 @@ module.exports = {
     port: 3306,
     dialect: "mysql",
     dialectModule: require("mysql2"),
+    timezone: "-03:00",
   },
 };
