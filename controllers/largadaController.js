@@ -30,6 +30,15 @@ class largadaController {
     }
   };
 
+  static buscarRegistros = async (req, res) => {
+    try {
+      const registro = await verescala.findAll();
+      res.status(200).json(registro);
+    } catch (erro) {
+      return res.status(500).json(erro.message);
+    }
+  };
+
 }
 
 module.exports = largadaController;
