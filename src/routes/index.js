@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const carregarArquivo = require("./carregarArquivo/carregarArquivo.js")
+const escala = require("./escala.js")
 
 
 const routes = (app) => {
@@ -12,6 +13,7 @@ const routes = (app) => {
     express.json(),
     cors(),
     carregarArquivo,
+    escala,
 
     express.raw({ type: "application/pdf" })
   );

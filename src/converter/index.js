@@ -54,10 +54,37 @@ const novaEscala = Object.entries(escala)
 
 const arraynovoFinal = novaEscala.reduce((acc, item)=> {
     acc.push(item[1][0])
-
-return acc},[])
+    return acc
+},[])
 
 arraynovoFinal.shift()
+
+arraynovoFinal.map(async item=>{
+
+    const validar = await verescala.count({
+        where:{
+            NRota: item.N_rota
+        }
+    })
+
+    if(validar < 1) {
+        const input = await verescala.create({
+            NRota: item.N_rota,
+            Transporte: item.Transporte,
+            Nf: item.NF,
+            Cliente: item.Cliente,
+            Cidade: item.Cidade,
+            Bairro: item.Bairro,
+            Qtdentregas: item.QtdEntrega,
+            Reentrega: item.Reentrega,
+            LDB: item.LDB,
+            ITB: item.ITB
+        })
+
+    }   
+
+})
+
 
 return arraynovoFinal
 
