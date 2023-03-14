@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const carregarArquivo = require("./carregarArquivo/carregarArquivo.js")
-const escala = require("./escala.js")
-
+const carregarArquivo = require("./carregarArquivo/carregarArquivo.js");
+const escala = require("./escala.js");
+const contagem = require("./estoque.js");
 
 const routes = (app) => {
   app.route("/").get((req, res) => {
@@ -14,6 +14,7 @@ const routes = (app) => {
     cors(),
     carregarArquivo,
     escala,
+    contagem,
 
     express.raw({ type: "application/pdf" })
   );
