@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.delete("/deletarcontagem", estoqueController.deletarregistros);
 router.get("/registroscontagem", estoqueController.carregarRegistros);
-router.get(
+router.post(
   "/uploadcontagem",
   upload.single("arquivo"),
   estoqueController.UploadContagem
